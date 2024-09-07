@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar with Toggleable Submenu</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+      }
+
+      .sidebar a {
+        padding: 10px;
+        display: block;
+        text-decoration: none;
+        color: white;
+      }
+
+      .sidebar a:hover {
+        background-color: #575757;
+      }
+
+      .submenu {
+        display: none;
+        background-color: #444;
+        margin-left: 20px;
+      }
+
+      .submenu a {
+        padding-left: 20px;
+      }
+
+      .submenu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="#">Dashboard</a>
+      <a href="#" class="submenu-toggle">Menu Item 1</a>
+      <div class="submenu">
+        <a href="#">Submenu Item 1</a>
+        <a href="#">Submenu Item 2</a>
+        <a href="#">Submenu Item 3</a>
+      </div>
+      <a href="#">Menu Item 2</a>
+      <a href="#">Menu Item 3</a>
+    </div>
+
+    <div style="margin-left: 250px; padding: 20px">
+      <!-- Main content here -->
+    </div>
+
+    <script>
+      document
+        .querySelector(".submenu-toggle")
+        .addEventListener("click", function () {
+          var submenu = document.querySelector(".submenu");
+          submenu.style.display =
+            submenu.style.display === "block" ? "none" : "block";
+        });
+    </script>
+  </body>
+</html>

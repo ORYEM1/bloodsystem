@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administration Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/v4-font-face.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .messages {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .messages i {
+        font-size: 20px;
+        margin-right: 10px;
+        position: relative;
+      }
+
+      .messages .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .messages .badge.blinking {
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .messages ul {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        border: 1px solid #ddd;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        z-index: 1000;
+        width: 200px;
+      }
+
+      .messages ul li {
+        border-bottom: 1px solid #ddd;
+      }
+
+      .messages ul li a {
+        padding: 10px;
+        display: block;
+        text-decoration: none;
+        color: black;
+      }
+
+      .messages ul li a:hover {
+        background: #f0f0f0;
+      }
+
+      .messages.show ul {
+        display: block;
+      }
+
+      .messages.show .badge.blinking {
+        animation: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section id="menu">
+      <!-- Sidebar code unchanged -->
+    </section>
+    <section id="interface">
+      <div class="nav">
+        <div class="n1">
+          <div>
+            <i id="menu-btn" class="fas fa-bars"></i>
+          </div>
+          <div class="search">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+        <div class="profile">
+          <i class="far fa-bell"></i>
+          <span class="fas fa-caret-down"></span>
+          <ul>
+            <li><a href="">Profile</a></li>
+            <li><a href="">Change Password</a></li>
+            <li><a href="">Edit Profile</a></li>
+          </ul>
+        </div>
+        <div class="messages" id="messages">
+          <i class="fas fa-envelope"></i>
+          <span class="badge blinking" id="messageCount">3</span>
+          <!-- Example badge with number of messages -->
+          <ul>
+            <li><a href="#">Message 1</a></li>
+            <li><a href="#">Message 2</a></li>
+            <li><a href="#">Message 3</a></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="i-name">Dashboard</h3>
+      <div class="values">
+        <div class="val-box">
+          <i class="fas fa-users"></i>
+          <h3>0</h3>
+          <span style="font-weight: 600; color: brown">A</span>
+        </div>
+        <div class="val-box">
+          <i class="fas fa-users"></i>
+          <h3>0</h3>
+          <span style="font-weight: 600; color: brown">AB</span>
+        </div>
+        <div class="val-box">
+          <i class="fas fa-users"></i>
+          <h3>0</h3>
+          <span style="font-weight: 600; color: brown">B</span>
+        </div>
+        <div class="val-box">
+          <i class="fas fa-users"></i>
+          <h3>0</h3>
+          <span style="font-weight: 600; color: brown">O</span>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const messages = document.getElementById("messages");
+        const badge = document.getElementById("messageCount");
+
+        // Function to handle the message click
+        messages.addEventListener("click", function () {
+          this.classList.toggle("show");
+
+          // Stop blinking animation and reset badge text
+          badge.classList.remove("blinking");
+          badge.textContent = "0"; // Assuming all messages are read
+        });
+
+        // Optional: Simulate new messages for demo
+        // setTimeout(() => {
+        //   badge.classList.add('blinking');
+        //   badge.textContent = '3';
+        // }, 1000);
+      });
+    </script>
+  </body>
+</html>

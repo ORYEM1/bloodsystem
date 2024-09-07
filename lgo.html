@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administration Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/v4-font-face.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header.header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .logo h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        #menu {
+            width: 250px;
+            background-color: #444;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            transition: width 0.3s;
+        }
+
+        #menu.active {
+            width: 60px;
+        }
+
+        #menu .items ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #menu .items ul li {
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #555;
+        }
+
+        #menu .items ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #menu .items ul li a i {
+            margin-right: 10px;
+        }
+
+        #interface {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        #menu.active + #interface {
+            margin-left: 60px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .search input {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile i {
+            margin-left: 10px;
+        }
+
+        .values {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .val-box {
+            width: 24%;
+            background-color: #ddd;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .val-box i {
+            font-size: 40px;
+            color: brown;
+            margin-bottom: 10px;
+        }
+
+        .board table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .board table th,
+        .board table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .board table th {
+            background-color: #f5f5f5;
+        }
+
+        .board table .people {
+            display: flex;
+            align-items: center;
+        }
+
+        .board table .people .people-de h5 {
+            margin: 0;
+        }
+
+        .board table .edit a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .board table .edit a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            #menu {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            #interface {
+                margin-left: 0;
+            }
+
+            #menu.active {
+                width: 100%;
+            }
+
+            .nav .search input {
+                width: 100%;
+            }
+
+            .values {
+                flex-direction: column;
+            }
+
+            .val-box {
+                width: 100%;
+            }
+
+            .board table th,
+            .board table td {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav .n1 {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .profile {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .values {
+                flex-direction: column;
+            }
+
+            .val-box {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .board table th,
+            .board table td {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle the sidebar menu
+            document.getElementById('menu-btn').addEventListener('click', function () {
+                const menu = document.getElementById('menu');
+                const interface = document.getElementById('interface');
+                menu.classList.toggle('active');
+                interface.classList.toggle('active');
+            });
+
+            // Toggle submenus
+            document.querySelectorAll('.blood-btn, .hist-btn, .user-btn, .page-btn, .account-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    this.nextElementSibling.classList.toggle('show');
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <section id="menu">
+        <header class="header">
+            <div class="logo">
+                <h2>Saves lives</h2>
+            </div>
+        </header>
+        <div class="items">
+            <ul>
+                <li>
+                    <div class="items">
+                        <a href="#"> <i class="fas fa-desktop"></i>Dashboard</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="items">
+                        <a href="#" class="blood-btn">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>Blood Inventory
+                            <span class="fas fa-caret-down first"></span>
+                        </a>
+                    </div>
+                    <ul class="blood-show">
+                        <li><a href="#">Total amount of blood</a></li>
+                        <li><a href="addblood.php">Add New Blood</a></li>
+                        <li><a href="#">Expired Blood</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="items">
+                        <a href="#" class="hist-btn"><i class="fa fa-history" aria-hidden="true"></i>History
+                            <span class="fas fa-caret-down second"></span>
+                        </a>
+                    </div>
+                    <ul class="hist-show">
+                        <li><a href="#">Donation History</a></li>
+                        <li><a href="#">Supplied History</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="items">
+                        <a href="" class="user-btn">
+                            <i class="fas fa-newspaper"></i>User Management
+                            <span class="fas fa-caret-down third"></span>
+                        </a>
+                    </div>
+                    <ul class="user-show">
+                        <li><a href="donortable.php">All Donors</a></li>
+                        <li><a href="adding.php">Add New Donors</a></li>
+                        <li><a href="#">All Recipients</a></li>
+                        <li><a href="#">Add Recipients</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div>
+                        <a href="login" class="page-btn"><i class="fa fa-file" aria-hidden="true"></i>Pages
+                            <span class="fas fa-caret-down forth"></span>
+                        </a>
+                    </div>
+                    <ul class="page-show">
+                        <li><a href="login.html">Login Page</a></li>
+                        <li><a href="registerdonor.php">Donors Registration</a></li>
+                        <li><a href="eligibility.html">Donors Eligibility</a></li>
+                        <li><a href="">Recipients Registration</a></li>
+                        <li><a href="#">Recipients Eligibility</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div>
+                        <a href="#" class="account-btn"><i class="fas fa-user-circle"></i>Account
+                            <span class="fas fa-caret-down fifth"></span>
+                        </a>
+                    </div>
+                    <ul class="account-show">
+                        <li><a href="#">Change Password</a></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="interface">
+        <div class="nav">
+            <div class="n1">
+                <i id="menu-btn" class="fas fa-bars"></i>
+                <div class="search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search" />
+                </div>
+            </div>
+            <div class="profile">
+                <i class="fas fa-bell"></i>
+                <img src="pic.jpg" alt="profile" />
+            </div>
+        </div>
+
+        <h3 class="i-name">Dashboard</h3>
+
+        <div class="values">
+            <div class="val-box">
+                <i class="fas fa-users"></i>
+                <div>
+                    <h3>50,000</h3>
+                    <span>Donors</span>
+                </div>
+            </div>
+            <div class="val-box">
+                <i class="fas fa-hand-holding-water"></i>
+                <div>
+                    <h3>100</h3>
+                    <span>Units Collected</span>
+                </div>
+            </div>
+            <div class="val-box">
+                <i class="fas fa-user-check"></i>
+                <div>
+                    <h3>5,000</h3>
+                    <span>Eligible Donors</span>
+                </div>
+            </div>
+            <div class="val-box">
+                <i class="fas fa-syringe"></i>
+                <div>
+                    <h3>25,000</h3>
+                    <span>Donations Made</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="board">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="people">
+                            <img src="profile.jpg" alt="profile" />
+                            <div class="people-de">
+                                <h5>John Doe</h5>
+                                <p>john@example.com</p>
+                            </div>
+                        </td>
+                        <td>john@example.com</td>
+                        <td>Admin</td>
+                        <td class="edit">
+                            <a href="#">Edit</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people">
+                            <img src="profile.jpg" alt="profile" />
+                            <div class="people-de">
+                                <h5>Jane Smith</h5>
+                                <p>jane@example.com</p>
+                            </div>
+                        </td>
+                        <td>jane@example.com</td>
+                        <td>Donor</td>
+                        <td class="edit">
+                            <a href="#">Edit</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="people">
+                            <img src="profile.jpg" alt="profile" />
+                            <div class="people-de">
+                                <h5>Mike Johnson</h5>
+                                <p>mike@example.com</p>
+                            </div>
+                        </td>
+                        <td>mike@example.com</td>
+                        <td>Recipient</td>
+                        <td class="edit">
+                            <a href="#">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+
+</html>
